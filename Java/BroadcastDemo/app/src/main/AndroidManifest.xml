@@ -2,20 +2,56 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="licy.firstcode.unit5.broadcastdemo">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.MainActivity" />
+
+        <receiver
+            android:name=".broadcast.BootBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.REBOOT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".broadcast.MySecondCustomBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="50">
+                <action android:name="licy.firstcode.unit5.broadcastdemo.Custom.Test" />
+            </intent-filter>
+        </receiver>
+
+
+        <receiver
+            android:name=".broadcast.MyCustomClearBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="licy.firstcode.unit5.broadcastdemo.Custom.Clear" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
